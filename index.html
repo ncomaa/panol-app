@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pañol-App</title>
+<link rel="stylesheet" href="estilos.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="icon" href="icon-192.png">
+</head>
+<body>
+<header>Pañol-App · Trazabilidad de tablets</header>
+<nav id="nav">
+  <button data-v="scan" class="on">Escanear</button>
+  <button data-v="alta">Alta (CU-01)</button>
+  <button data-v="lista">Inventario</button>
+  <button data-v="hist">Historial</button>
+</nav>
+<main>
+  <section id="scan">
+    <div class="card">
+      <b>¿QR dañado o sin cámara?</b>
+      <input id="manual" placeholder="Número de serie (ej: TAB-0001)">
+      <button class="b s" id="btnManual">Buscar por número de serie</button>
+    </div>
+    <div class="card">
+      <div id="reader"></div>
+      <button class="b" id="btnCam">Abrir cámara y escanear QR</button>
+      <button class="b s" id="btnStop" style="display:none">Detener cámara</button>
+      <div id="camMsg"></div>
+    </div>
+    <div id="ficha"></div>
+  </section>
+  <section id="alta" class="hide">
+    <div class="card"><h3>CU-01 · Alta de tablet en Pañol</h3>
+      <div id="altaForm"></div>
+      <button class="b" id="btnAlta">Registrar y generar QR</button>
+      <div id="qrOut" style="text-align:center;margin-top:12px"></div>
+    </div>
+  </section>
+  <section id="lista" class="hide">
+    <input id="filtro" placeholder="Buscar por serie o legajo...">
+    <div id="listaOut"></div>
+  </section>
+  <section id="hist" class="hide"><div id="histOut"></div></section>
+</main>
+<!-- Librerías: para el APK descargarlas a esta carpeta (ver README) -->
+<script src="html5-qrcode.min.js"></script>
+<script src="qrcode.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}</script>
+</body>
+</html>
