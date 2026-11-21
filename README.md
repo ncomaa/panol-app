@@ -1,5 +1,6 @@
 Este es el Proyecto para la materia de desarrollo de sistemas de 6to año
 **Integrantes: Diego Bonahora - Franco Maguicha - Axel Ortiz - Dylan Gonzalez**
+
 Sistema Móvil de Gestión y Trazabilidad de Tablets Corporativas
  
  Propósito del Proyecto
