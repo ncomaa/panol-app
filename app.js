@@ -102,7 +102,8 @@ function mostrar(t) {
   const filas = CAMPOS.filter(c => c.k !== "serie").map(c => `<tr><td class="lbl">${esc(c.l)}</td><td>${esc(t[c.k]) || "-"}</td></tr>`).join("");
   $("ficha").innerHTML = `<div class="card"><h3>${esc(t.serie)} <span class="badge" style="background:${COLOR[t.estado]}">${ESTADOS[t.estado]}</span></h3>
   <table>${filas}${t.legajo ? `<tr><td class="lbl">Legajo</td><td>${esc(t.legajo)}</td></tr><tr><td class="lbl">Tarea</td><td>${esc(t.tarea || "-")}</td></tr>` : ""}</table>
-  <div id="msg"></div>${acc}</div>`;
+  <div id="msg"></div>${acc}
+  <button class="b s" onclick="verQR()">Ver QR de esta tablet</button><div id="qrFicha" style="text-align:center;margin-top:10px"></div></div>`;
 }
 const msg = (c, t) => $("msg").innerHTML = `<div class="alert ${c}">${t}</div>`;
 window.despachar = () => {
@@ -132,3 +133,12 @@ function renderHist() {
   const h = load(K.h);
   $("histOut").innerHTML = h.length ? h.map(x => `<div class="card"><b>${esc(x.accion)}</b> · ${esc(x.serie)}<br><span class="lbl">${esc(x.f)}</span><br>${esc(x.detalle)}</div>`).join("") : '<div class="card">Sin movimientos.</div>';
 }
+
+// Vuelve a generar el QR de la tablet abierta (a partir de sus datos guardados).
+window.verQR = () => {
+  const t = buscar(actual);
+  try {
+    const q = qrcode(0, "M"); q.addData(JSON.stringify(datosQR(t))); q.make();
+    $("qrFicha").innerHTML = q.createImgTag(6) + `<p class="lbl">QR de ${esc(t.serie)} · mantené presionada la imagen para guardarla o sacale captura para imprimir</p>`;
+  } catch (e) { $("qrFicha").innerHTML = '<div class="alert wa">No se pudo generar el QR.</div>'; }
+};
